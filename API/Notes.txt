@@ -1,0 +1,36 @@
+Dating APP
+
+Folder Data:
+	- DataContext.cs contains the tables of the Database (Users, ...................). 
+	Context is the Core of the backend and it's between the models and the Database.
+
+Folder Entities:
+	- This Folder contains the entities of the Database and their attributes.
+
+File Program.cs
+	- It Used Dependency injection to inject the class DataContext to be used in the project. 
+	Also, it set the Connection String to Connect the backend with the Database
+
+	- The file appsettings.Development.Json contains the Connection String to be load by the DataContext
+	"ConnectionStrings": 
+	{
+		"DefaultConnection": "Data source=datingapp.db"
+	}
+
+Command to create migrations in EntityFramework:
+	dotnet ef migrations add (MigrationsName)
+
+Command to update Database in EntityFramework:
+	dotnet ef database update
+
+For the Controllers, you have to create a property of DataContext's type and a constructor with a parameter of type DataContext in order to get access to the database.
+Then inside the Contructor, it is necesary to write PropertyName(DataContext's type) = parameterName(DataContext's type).
+Example:
+	public class UsersController : ControllerBase
+	{
+		private readonly DataContext _context;
+		public UsersController(DataContext context)
+		{
+			_context = context;
+		}
+	}
